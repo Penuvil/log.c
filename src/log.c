@@ -117,7 +117,7 @@ static void init_event(log_Event *ev, void *udata) {
   ev->udata = udata;
 }
 
-void log_log(int level, const char *file, int line, const char *fmt, ...) {
+__declspec(dllexport) LOG_LOG(log_log) {
   log_Event ev = {
       .fmt = fmt,
       .file = file,

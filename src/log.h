@@ -30,6 +30,10 @@ typedef void (*log_LockFn)(bool lock, void *udata);
 
 enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };
 
+#define LOG_LOG(name)                                                          \
+  void name(int level, const char *file, int line, const char *fmt, ...)
+typedef LOG_LOG(LogLog);
+
 #define log_trace(...) log_log(LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
 #define log_debug(...) log_log(LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
 #define log_info(...) log_log(LOG_INFO, __FILE__, __LINE__, __VA_ARGS__)
@@ -44,7 +48,7 @@ void log_set_quiet(bool enable);
 int log_add_callback(log_LogFn fn, void *udata, int level);
 int log_add_fp(FILE *fp, int level);
 
-__declspec(dllexport) void log_log(int level, const char *file, int line,
-                                   const char *fmt, ...);
+//__declspec(dllexport) void log_log(int level, const char *file, int line,
+//                                   const char *fmt, ...);
 
 #endif
